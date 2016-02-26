@@ -109,7 +109,7 @@ class MockStorageAdapter implements StorageAdapterInterface
             }
         }
 
-        $fingerprint = md5(serialize([
+        $fingerprint = substr(md5(serialize([
             'method' => $request->getMethod(),
             'path' => $request->getUri()->getPath(),
             'query' => $request->getUri()->getQuery(),
@@ -117,7 +117,7 @@ class MockStorageAdapter implements StorageAdapterInterface
             'port' => $request->getUri()->getPort(),
             'scheme' => $request->getUri()->getScheme(),
             'headers' => $headers,
-        ]));
+        ])), 0, 7);
 
         if (true === $withHost) {
             $path = sprintf(
