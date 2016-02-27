@@ -122,6 +122,16 @@ class MockStorageAdapter implements StorageAdapterInterface
             );
         }
 
-        return $this->storagePath.'/'.preg_replace('/[^a-zA-Z0-9_+=@\-\?\.]/', '-', $path).'.txt';
+        $path = preg_replace('/[^a-zA-Z0-9_+=@\-\?\.]/', '-', $path);
+        $path = str_split($path, 20);
+        $filename = array_pop($path);
+
+        $dir = $this->storagePath.'/'.implode('/', $path);
+
+        if(!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        return $dir.'/'.$filename.'.txt';
     }
 }
