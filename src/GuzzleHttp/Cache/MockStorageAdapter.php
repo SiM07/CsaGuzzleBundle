@@ -124,6 +124,11 @@ class MockStorageAdapter implements StorageAdapterInterface
 
         $path = preg_replace('/[^a-zA-Z0-9_+@\-\.]/', '-', $path);
         $path = str_split($path, 128);
+        // so ugly
+        foreach ($path as &$p) {
+          $sum = substr($p, 0, 20).'-'.substr(md5($p), 0, 7);
+          $p = $sum;
+        }
         $filename = array_pop($path);
 
         $dir = $this->storagePath.DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $path);
