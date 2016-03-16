@@ -126,12 +126,12 @@ class MockStorageAdapter implements StorageAdapterInterface
         $path = str_split($path, 128);
         $filename = array_pop($path);
 
-        $dir = $this->storagePath.'/'.implode('/', $path);
+        $dir = $this->storagePath.DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $path);
 
         if(!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
-        return $dir.'/'.$filename.'.txt';
+        return $dir.DIRECTORY_SEPARATOR.$filename.'.txt';
     }
 }
